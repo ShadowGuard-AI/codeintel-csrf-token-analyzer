@@ -43,6 +43,17 @@ def is_token_generation_present(code: str, token_name: str) -> bool:
         rf"{token_name}\s*=\s*os\.urandom\s*\(.*\)",
         rf"{token_name}\s*=\s*uuid\.uuid4\s*\(.*\)"
     ]
+    # Framework code usually stores the token in a session dict, not
+    # in a bare variable: session['csrf_token'] = secrets.token_hex().
+    # That spelling matches none of the patterns above, so the same
+    # value shapes are also tried behind a subscripted assignment.
+    subscript = rf"\[['\"]{token_name}['\"]\]\s*=\s*"
+    patterns += [
+        subscript + rf"([a-zA-Z0-9_]+\.)?generate[_]*token\s*\(.*\)",
+        subscript + rf"secrets\.token_hex\s*\(.*\)",
+        subscript + rf"os\.urandom\s*\(.*\)",
+        subscript + rf"uuid\.uuid4\s*\(.*\)",
+    ]
     for pattern in patterns:
         if re.search(pattern, code):
             return True
