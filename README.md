@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # codeintel-CSRF-Token-Analyzer
 Verifies the implementation of CSRF protection mechanisms in web application code, focusing on token generation and validation. - Focused on Tools for static code analysis, vulnerability scanning, and code quality assurance
 
