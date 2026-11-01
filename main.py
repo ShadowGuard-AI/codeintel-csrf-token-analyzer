@@ -54,6 +54,10 @@ def is_token_generation_present(code: str, token_name: str) -> bool:
         subscript + rf"os\.urandom\s*\(.*\)",
         subscript + rf"uuid\.uuid4\s*\(.*\)",
     ]
+    # I put the token name into these patterns as raw regex text.
+    # That is why main refuses any name that is not a plain
+    # identifier: a name with regex characters would change what
+    # the pattern matches instead of just naming the token.
     for pattern in patterns:
         if re.search(pattern, code):
             return True
@@ -148,6 +152,9 @@ def analyze_directory(dir_path: str, token_name: str, form_field: str, exclude: 
                     continue
 
                 gen, val = analyze_file(file_path, token_name, form_field)
+                # I pool the two flags across the whole tree. Generation in one
+                # file and validation in another reads as both present, even if
+                # no single file does both halves of the pattern.
                 generation_found = generation_found or gen
                 validation_found = validation_found or val
 
@@ -184,6 +191,9 @@ def main():
     else:
         logging.warning("CSRF token generation logic NOT found.")
 
+    # I only log these outcomes. A directory with no generation and
+    # no validation still exits 0, so a calling script cannot use
+    # the exit code to tell a clean result from an empty one.
     if validation_found:
         logging.info("CSRF token validation logic found.")
     else:
