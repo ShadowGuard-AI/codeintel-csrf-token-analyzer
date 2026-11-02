@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="The lane at dusk in three depths: the sky deepening by slow degrees with stars pricking through one by one, the emperor moth in slow heavy flight in a wide loop around the lamp with ant trails filing below it, and dew gathering on a web between two grass stems, one bead forming, swelling, and holding">
+<rect x="0" y="0" width="1200" height="300" fill="#6e5270"><animate attributeName="fill" values="#6e5270;#3a2c50;#3a2c50;#6e5270" dur="48s" repeatCount="indefinite"/></rect>
+<g fill="#eef"><circle cx="180" cy="40" r="2.5" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.3;0.45;1" dur="40s" repeatCount="indefinite"/></circle><circle cx="520" cy="26" r="2.5" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.65;1" dur="40s" repeatCount="indefinite"/></circle><circle cx="900" cy="52" r="2.5" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.8;1" dur="40s" repeatCount="indefinite"/></circle></g>
+<rect x="0" y="196" width="1200" height="34" fill="#2e3828"/>
+<rect x="1002" y="168" width="24" height="20" fill="#e8b34b"/>
+<rect x="0" y="230" width="1200" height="70" fill="#55483a"/>
+<rect x="392" y="96" width="7" height="140" fill="#1c1a1c"/><ellipse cx="396" cy="86" rx="17" ry="22" fill="#fad678"/>
+<g><animateMotion path="M396 86 m-120 0 a120 44 0 1 0 240 0 a120 44 0 1 0 -240 0" dur="22s" repeatCount="indefinite"/><polygon points="0,0 -34,-9 -36,8 -8,6" fill="#241e20"/><polygon points="0,0 34,-9 36,8 8,6" fill="#241e20"/><ellipse cx="0" cy="0" rx="5" ry="8" fill="#1a1518"/></g>
+<g fill="#181410"><circle cx="0" cy="262" r="4"><animateMotion path="M600 0 H900" dur="16s" repeatCount="indefinite"/></circle><circle cx="0" cy="274" r="4"><animateMotion path="M580 0 H880" dur="16s" begin="2s" repeatCount="indefinite"/></circle><circle cx="0" cy="286" r="4"><animateMotion path="M620 0 H920" dur="16s" begin="4s" repeatCount="indefinite"/></circle></g>
+<g stroke="#c9cdd2" stroke-width="1.5"><line x1="120" y1="238" x2="120" y2="300"/><line x1="230" y1="238" x2="230" y2="300"/><path d="M120 252 Q175 268 230 252 M120 276 Q175 292 230 276 M120 252 L230 276 M230 252 L120 276" fill="none"/></g>
+<circle cx="175" cy="264" r="2" fill="#dfe6ee"><animate attributeName="r" values="2;2;7;7;2" keyTimes="0;0.25;0.6;0.9;1" dur="18s" repeatCount="indefinite"/></circle>
+</svg>
