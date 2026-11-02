@@ -3,163 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codeintel Csrf Token Analyzer: what it is, how it runs, where it stops</title>
-<meta name="description" content="Codeintel Csrf Token Analyzer is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
+<title>codeintel-csrf-token-analyzer: The Emperor Moth's One Night</title>
 <style>
-:root {
-  --bg: #0e2a22; --panel: #14382d; --ink: #eef0e2;
-  --mut: #1b4b3c;
-  --acc: #f4d06f; --acc2: #ec8a7a;
-  --line: #14382d;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: Verdana, Geneva, sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Lucida Console', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
+@font-face{font-family:'Bitcount Single';src:url('fonts/BitcountSingle.ttf') format('truetype');}
+@font-face{font-family:'Cabin';src:url('fonts/Cabin.ttf') format('truetype');}
+:root{--ground:#8a7a68;--panel:#d8cfc0;--head:#6e5270;--ink:#221e24;--accent:#e8b34b}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:'Cabin',sans-serif;line-height:1.65}
+h1,h2,h3{font-family:'Bitcount Single',serif;color:var(--head)}
+.hero img.heroimg{width:100%;height:54vh;object-fit:cover;display:block}
+.hero .in,main,footer{max-width:1120px;margin:0 auto;padding:1rem 6vw 2rem}.logo{width:210px}
+nav{display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0}
+.btn{display:inline-block;text-decoration:none;font-family:'Bitcount Single',serif;color:var(--head);background:var(--panel);border:2px solid var(--accent);border-radius:20px;padding:.75rem 1.2rem}
+.btn:hover{filter:brightness(1.12)}.btn:active{transform:translateY(2px)}.btn:focus-visible{outline:4px double var(--accent);outline-offset:3px}
+a{color:var(--head)}a:hover{color:var(--accent)}.btn::before{content:none}
+.plate{background:var(--panel);color:#1e1c24;padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0;position:relative}
+.plate h2,.plate h3{color:#3a3040}
+pre{background:#22202a;color:#f4f2ea;padding:1rem;overflow-x:auto}
+.drops{height:14px;margin:1.6rem 0;border-top:2px solid var(--accent)}
+.callout{background:rgba(255,255,255,.55);border-left:8px solid var(--accent);padding:.2rem 1.3rem 1rem;margin:1.3rem 0}
+.flag{border:3px solid #c22e2e;padding:.2rem 1.2rem 1rem;margin:1.2rem 0}
+.entry{display:flex;gap:1rem;padding:.55rem 0;border-bottom:1px solid rgba(30,28,36,.22)}.entry b{min-width:210px}
 </style>
 </head>
-<body class="layout-cards">
-<!-- This page exists for codeintel-csrf-token-analyzer alone: the layout (index-cards),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
+<body>
 <header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Codeintel Csrf Token Analyzer logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Codeintel Csrf Token Analyzer</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer">github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer</a></p>
+<img class="heroimg" src="assets/intro-banner.png" alt="Dusk over a lane with no lettering: grass heads rimmed in last light, a moulted feather in the stems, the lane in pale dust, the lamp lit in its own circle of light, ant trails on the bare earth, a hedge darkening behind, first stars, one lit cottage window far off, and the emperor moth high crossing the lamp glow">
+<div class="in">
+<img class="logo" src="assets/logo.png" alt="One emperor moth at rest on lamp glass, wings spread flat and wide, one pale eyespot on each forewing, a wavy outer band, feathery antennae laid forward, and codeintel-csrf-token-analyzer lettered below in the field guide manner">
+<h1>codeintel-csrf-token-analyzer</h1>
+<p>A field guide entry written up after the one night, read from dusk downward. One path, two pattern checks, and the log lines carry the result.</p>
+<nav>
+<a class="btn" href="#work">Check This Path</a>
+<a class="btn" href="#params">Set the Token Name</a>
+<a class="btn" href="#params">Set the Form Field</a>
+<a class="btn" href="#params">Add an Exclusion</a>
+<a class="btn" href="#params">Show Help</a>
+</nav>
+</div>
 </header>
-
 <main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Codeintel Csrf Token Analyzer is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Codeintel Csrf Token Analyzer: 5 files, 219 counted
-          lines across Python 198, Markdown 19, Text 2. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer.git<br>$ cd codeintel-csrf-token-analyzer</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 10 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>
-
-def setup_argparse():
-    &quot;&quot;&quot;
-    Sets up the argument parser for the CLI.
-
-    Returns:
-        argparse.ArgumentParser: The argument parser object.
-    &quot;&quot;&quot;
-    parser = argparse.ArgumentParser(description=&quot;Analyze web application code for CSRF token implementation.&quot;)
-    parser.add_argument(&quot;source_code_path&quot;, help=&quot;Path to the source code directory or file.&quot;)
-    parser.add_argument(&quot;--token_name&quot;, default=&quot;csrf_token&quot;, help=&quot;Name of the CSRF token (default: csrf_token).&quot;)
-    parser.add_argument(&quot;--form_field&quot;, default=&quot;csrf_token&quot;, help=&quot;Name of the CSRF form field (default: csrf_token).&quot;)
-    parser.add_argument(&quot;--exclude&quot;, nargs=&#x27;+&#x27;, default=[], help=&quot;List of files or directories to exclude.&quot;)
-
-    return parser
-
-
-def is_token_generation_present(code: str, token_name: str) -&gt; bool:
-    &quot;&quot;&quot;
-    Checks if CSRF token generation logic is present in the code.</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>198</td></tr>
-        <tr><td><code>README.md</code></td><td>19</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>2</td></tr>
-        <tr><td><code>banner.png</code></td><td>0</td></tr>
-        <tr><td><code>logo.png</code></td><td>0</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, is_token_generation_present, is_token_validation_present, analyze_file, analyze_directory, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer/tree/main/codeintel-csrf-token-analyzer-Visuals">codeintel-csrf-token-analyzer-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Codeintel Csrf Token Analyzer">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Codeintel Csrf Token Analyzer">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Codeintel Csrf Token Analyzer">
-        </div>
-      </section>
-    </div>
-  </section>
+<section class="plate" id="work"><h2>One Night, Two Checks</h2>
+<p>codeintel-csrf-token-analyzer verifies the implementation of CSRF protection mechanisms in web application code, focusing on token generation and validation. In the code as it stands that means pattern matching over Python files.</p><h3>Generation Patterns</h3><p>The generation check looks for the named token assigned from a generate token call, from secrets.token_hex, from os.urandom, or from uuid.uuid4, including the same value shapes assigned into a session entry under the token name.</p><h3>Validation Patterns</h3><p>The validation check looks for an if line in which a request form or POST field is compared with the token using not equal, in either order, with subscript or get access. The two checks are reported separately, and a file may hold either one without the other.</p>
+</section>
+<div class="drops"></div>
+<section class="plate"><h2>Install, One Clone Line</h2>
+<pre>git clone https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer</pre><p>Printed as the README prints it. The address is correct for this organisation. The README gives no change of directory step and no install step after the clone.</p><p>Repository fact, not a README fact: the repo carries a requirements.txt which states in terms that main.py uses only the Python standard library and that there is nothing to install.</p>
+</section>
+<div class="drops"></div>
+<section class="plate"><h2>Usage, the True Line at Full Size</h2>
+<pre>python3 main.py SOURCE_CODE_PATH [--token_name NAME] [--form_field FIELD] [--exclude PATH ...]</pre><p>That line matches the argument parser in main.py: one required positional path, then the three named options. No second line is needed beside it and none is invented.</p>
+</section>
+<div class="drops"></div>
+<section class="plate" id="params"><h2>The Five Parameters</h2>
+<div class="entry"><b>-h</b><span>Show help message and exit.</span></div><div class="entry"><b>source_code_path</b><span>Path to the source code directory or file. Required.</span></div><div class="entry"><b>--token_name</b><span>Name of the CSRF token (default: csrf_token).</span></div><div class="entry"><b>--form_field</b><span>Name of the CSRF form field (default: csrf_token).</span></div><div class="entry"><b>--exclude</b><span>List of files or directories to exclude.</span></div><p>Two facts from the parser stand beside the list at the same size. The token name and the form field must each be a plain identifier, a letter or underscore followed by letters, digits, or underscores, because both names are placed into the search patterns as raw pattern text, and a run with any other shape of name is refused with an error and exit 1. A path that is neither a file nor a directory is likewise refused with an error and exit 1.</p>
+</section>
+<div class="drops"></div>
+<section class="plate"><h2>Read the Log Lines, Not the Exit Code</h2>
+<p>A Python file containing a token generation call and a form field comparison against the token reports both generation and validation logic found. A file with neither reports both as not found, and still exits 0. The exit code does not distinguish a clean file from a file with no CSRF logic, so read the log lines, not the exit code, for the result.</p><div class="callout"><h3>Found Across the Tree Is Not Found in One File</h3><p>A directory run pools its two findings across the whole tree, so generation in one file and validation in another reads as both present even when no single file does both halves.</p></div><div class="callout"><h3>Exit 0 Proves Nothing Either Way</h3><p>Only files ending in .py are read, so token handling written in any other language or in a template is outside the check altogether, however sound or unsound it may be.</p></div>
+</section>
+<div class="drops"></div>
+<section class="plate"><h2>Licence Entry, Closing the Guide</h2>
+<pre>See LICENSE.</pre><p>The README closes with that line, printed as it stands. The repository LICENSE file carries the MIT License. Both facts are shown, and here they agree.</p>
+</section>
 </main>
-<footer>
-  <p>Codeintel Csrf Token Analyzer is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
+<footer><p>Theme: The Emperor Moth's One Night. Type: Bitcount Single for display, Cabin for reading, both SIL Open Font License 1.1.</p></footer>
 </body>
 </html>
