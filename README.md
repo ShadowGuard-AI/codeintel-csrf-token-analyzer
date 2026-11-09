@@ -1,10 +1,10 @@
-![Dusk over a lane with no lettering: grass heads rimmed in last light, a moulted feather in the stems, the lane in pale dust, the lamp lit in its own circle of light, ant trails on the bare earth, a hedge darkening behind, first stars, one lit cottage window far off, and the emperor moth high crossing the lamp glow](intro-banner.png)
+![The token pouch changing hands close up, the signalman's hand passing the open leather pouch with its plain brass token to the driver's gloved hand at the train cab](intro-banner.png)
 
 # codeintel-CSRF-Token-Analyzer
 
-![A summer lane at dusk: the lamp lit a third in from the left, the emperor moth crossing the lit circle with its eyespots reading, ant trails in single file, a feather caught in the grass, one lit cottage window far behind the hedge, and the name codeintel-csrf-token-analyzer on a small enamelled plate on the lamp post](banner.png)
+![A country station platform at dusk where the signalman hands the brass token in its leather pouch to the driver at the cab window, a single line of rail running away into flat fields](banner.png)
 
-![One emperor moth at rest on lamp glass, wings spread flat and wide, one pale eyespot on each forewing, a wavy outer band, feathery antennae laid forward, and codeintel-csrf-token-analyzer lettered below in the field guide manner](logo.png)
+![One round brass token with a plain scratched face resting in its open leather pouch on a station bench, the pouch stitching clear](logo.png)
 
 ![The lane at dusk in three depths: the sky deepening by slow degrees with stars pricking through one by one, the emperor moth in slow heavy flight in a wide loop around the lamp with ant trails filing below it, and dew gathering on a web between two grass stems, one bead forming, swelling, and holding](scene.svg)
 

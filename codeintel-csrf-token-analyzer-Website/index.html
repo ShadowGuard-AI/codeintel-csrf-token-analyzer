@@ -3,69 +3,99 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>codeintel-csrf-token-analyzer: The Emperor Moth's One Night</title>
+<title>codeintel-csrf-token-analyzer: The Token Exchange</title>
 <style>
-@font-face{font-family:'Bitcount Single';src:url('fonts/BitcountSingle.ttf') format('truetype');}
-@font-face{font-family:'Cabin';src:url('fonts/Cabin.ttf') format('truetype');}
-:root{--ground:#8a7a68;--panel:#d8cfc0;--head:#6e5270;--ink:#221e24;--accent:#e8b34b}
-*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:'Cabin',sans-serif;line-height:1.65}
-h1,h2,h3{font-family:'Bitcount Single',serif;color:var(--head)}
-.hero img.heroimg{width:100%;height:54vh;object-fit:cover;display:block}
-.hero .in,main,footer{max-width:1120px;margin:0 auto;padding:1rem 6vw 2rem}.logo{width:210px}
-nav{display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0}
-.btn{display:inline-block;text-decoration:none;font-family:'Bitcount Single',serif;color:var(--head);background:var(--panel);border:2px solid var(--accent);border-radius:20px;padding:.75rem 1.2rem}
-.btn:hover{filter:brightness(1.12)}.btn:active{transform:translateY(2px)}.btn:focus-visible{outline:4px double var(--accent);outline-offset:3px}
-a{color:var(--head)}a:hover{color:var(--accent)}.btn::before{content:none}
-.plate{background:var(--panel);color:#1e1c24;padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0;position:relative}
-.plate h2,.plate h3{color:#3a3040}
-pre{background:#22202a;color:#f4f2ea;padding:1rem;overflow-x:auto}
-.drops{height:14px;margin:1.6rem 0;border-top:2px solid var(--accent)}
-.callout{background:rgba(255,255,255,.55);border-left:8px solid var(--accent);padding:.2rem 1.3rem 1rem;margin:1.3rem 0}
-.flag{border:3px solid #c22e2e;padding:.2rem 1.2rem 1rem;margin:1.2rem 0}
-.entry{display:flex;gap:1rem;padding:.55rem 0;border-bottom:1px solid rgba(30,28,36,.22)}.entry b{min-width:210px}
+@font-face { font-family: "Train One"; src: url("fonts/TrainOne-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Gantari"; src: url("fonts/Gantari-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Gantari"; src: url("fonts/Gantari-700.woff2") format("woff2"); font-weight: 700; }
+:root {
+  --paper: #f7f2e7; --cream: #ece2cc; --ink: #2e2620; --soft: #6d5f4c;
+  --accent: #a31621; --deep: #6e4a1f; --line: #d8c9a8; --card: #ffffff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Gantari", sans-serif; line-height: 1.55; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 64px; }
+header.hero { text-align: center; padding: 52px 0 8px; }
+img.hero-logo { width: min(430px, 82vw); border-radius: 10px; box-shadow: 0 10px 34px rgba(40,32,24,.22); }
+h1, h2 { font-family: "Train One", sans-serif; line-height: 1.15; }
+h1 { font-size: clamp(26px, 5vw, 44px); margin: 26px 0 6px; }
+.tagline { color: var(--soft); font-size: 19px; margin: 0 auto; max-width: 680px; }
+.btns { margin: 22px 0 6px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+a.btn { font-family: "Train One", sans-serif; text-decoration: none; padding: 11px 22px; border-radius: 999px; border: 2px solid var(--accent); color: var(--accent); background: transparent; }
+a.btn.solid { background: var(--deep); border-color: var(--deep); color: #fff; }
+figure { margin: 30px 0; }
+figure img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 8px 28px rgba(40,32,24,.18); }
+figcaption { color: var(--soft); font-size: 15px; text-align: center; margin-top: 9px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 34px 0; }
+.fact { background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent); border-radius: 8px; padding: 14px 16px; }
+.fact b { display: block; font-family: "Train One", sans-serif; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+section { margin: 38px 0; }
+h2 { font-size: 27px; margin: 0 0 12px; border-bottom: 2px solid var(--line); padding-bottom: 7px; }
+code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+pre { background: #2e2118; color: #f3ecdd; padding: 15px 18px; border-radius: 8px; overflow-x: auto; font-size: 14.5px; }
+table { border-collapse: collapse; width: 100%; background: var(--card); }
+th, td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+th { font-family: "Train One", sans-serif; background: var(--cream); }
+.hold { background: #fdf3ec; border: 1px solid #e8c9b8; border-left: 6px solid var(--accent); border-radius: 8px; padding: 16px 20px; }
+.hold h2 { border: none; padding: 0; }
+.hold ul { margin: 8px 0 4px; padding-left: 20px; }
+footer { margin-top: 52px; border-top: 2px solid var(--line); padding-top: 16px; color: var(--soft); font-size: 14.5px; text-align: center; }
 </style>
 </head>
 <body>
+<div class="wrap">
 <header class="hero">
-<img class="heroimg" src="assets/intro-banner.png" alt="Dusk over a lane with no lettering: grass heads rimmed in last light, a moulted feather in the stems, the lane in pale dust, the lamp lit in its own circle of light, ant trails on the bare earth, a hedge darkening behind, first stars, one lit cottage window far off, and the emperor moth high crossing the lamp glow">
-<div class="in">
-<img class="logo" src="assets/logo.png" alt="One emperor moth at rest on lamp glass, wings spread flat and wide, one pale eyespot on each forewing, a wavy outer band, feathery antennae laid forward, and codeintel-csrf-token-analyzer lettered below in the field guide manner">
-<h1>codeintel-csrf-token-analyzer</h1>
-<p>A field guide entry written up after the one night, read from dusk downward. One path, two pattern checks, and the log lines carry the result.</p>
-<nav>
-<a class="btn" href="#work">Check This Path</a>
-<a class="btn" href="#params">Set the Token Name</a>
-<a class="btn" href="#params">Set the Form Field</a>
-<a class="btn" href="#params">Add an Exclusion</a>
-<a class="btn" href="#params">Show Help</a>
-</nav>
-</div>
+  <img class="hero-logo" src="assets/logo.png" alt="One round brass token with a plain scratched face resting in its open leather pouch on a station bench, the pouch stitching clear">
+  <h1>codeintel-csrf-token-analyzer</h1>
+  <p class="tagline">The Token Exchange. A command line tool that searches Python source for the two halves of CSRF token handling: a place where the token is generated, and a place where it is checked.</p>
+  <div class="btns">
+    <a class="btn solid" href="https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer">The repository</a>
+    <a class="btn" href="https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer/blob/main/main.py">main.py</a>
+  </div>
 </header>
-<main>
-<section class="plate" id="work"><h2>One Night, Two Checks</h2>
-<p>codeintel-csrf-token-analyzer verifies the implementation of CSRF protection mechanisms in web application code, focusing on token generation and validation. In the code as it stands that means pattern matching over Python files.</p><h3>Generation Patterns</h3><p>The generation check looks for the named token assigned from a generate token call, from secrets.token_hex, from os.urandom, or from uuid.uuid4, including the same value shapes assigned into a session entry under the token name.</p><h3>Validation Patterns</h3><p>The validation check looks for an if line in which a request form or POST field is compared with the token using not equal, in either order, with subscript or get access. The two checks are reported separately, and a file may hold either one without the other.</p>
+<figure>
+  <img src="assets/intro-banner.png" alt="The token pouch changing hands close up, the signalman's hand passing the open leather pouch with its plain brass token to the driver's gloved hand at the train cab">
+  <figcaption>One token, presented and matched at both ends of the line.</figcaption>
+</figure>
+
+<div class="facts">
+  <div class="fact"><b>Input</b>One Python file, or a directory tree of them; only files ending in .py are read</div>
+  <div class="fact"><b>Generation</b>An assignment of generate_token(), secrets.token_hex, os.urandom, or uuid.uuid4 to the token name, bare or behind a subscript</div>
+  <div class="fact"><b>Validation</b>Four if shapes comparing request.form or request.POST against the token with !=, subscript or .get, in either order</div>
+  <div class="fact"><b>Exit</b>A file with neither half still exits 0; only an invalid path or an invalid name exits 1</div>
+</div>
+<section>
+  <h2>Usage</h2>
+  <pre>python3 main.py SOURCE_CODE_PATH [--token_name NAME] [--form_field FIELD] [--exclude PATH ...]</pre>
+  <p>The token name and form field each default to csrf_token. Both names are placed into the search patterns as raw pattern text, so each must be a plain identifier, a letter or underscore followed by letters, digits, or underscores; any other shape is refused with an error and exit 1. The findings are logged and nothing more is done with them.</p>
+<table>
+    <tr><th>Option</th><th>What it does</th></tr>
+    <tr><td><code>source_code_path</code></td><td>The file or directory tree to search. Required.</td></tr>
+    <tr><td><code>--token_name</code></td><td>The token variable name to look for. Default csrf_token.</td></tr>
+    <tr><td><code>--form_field</code></td><td>The form field name to look for. Default csrf_token.</td></tr>
+    <tr><td><code>--exclude</code></td><td>Files or directories to leave out of a tree search.</td></tr>
+  </table>
 </section>
-<div class="drops"></div>
-<section class="plate"><h2>Install, One Clone Line</h2>
-<pre>git clone https://github.com/ShadowGuard-AI/codeintel-csrf-token-analyzer</pre><p>Printed as the README prints it. The address is correct for this organisation. The README gives no change of directory step and no install step after the clone.</p><p>Repository fact, not a README fact: the repo carries a requirements.txt which states in terms that main.py uses only the Python standard library and that there is nothing to install.</p>
+<figure>
+  <img src="assets/banner.png" alt="A country station platform at dusk where the signalman hands the brass token in its leather pouch to the driver at the cab window, a single line of rail running away into flat fields">
+  <figcaption>The exchange on the platform: nothing passes until the token changes hands.</figcaption>
+</figure>
+<section class="hold">
+  <h2>What the search does not prove</h2>
+  <ul>
+    <li>This is a spelling search. A match means the pattern's shape exists in the text; no token is generated, compared at runtime, or measured for strength.</li>
+    <li>A directory run pools the two findings across the whole tree, so generation in one file and validation in another reads as both present even when no single file does both halves.</li>
+    <li>The exit code never distinguishes a clean file from a file with no CSRF logic at all: both exit 0.</li>
+    <li>The GitHub description's word Verifies overstates the tool; the site states the plainer fact, that the tool searches for the shapes.</li>
+  </ul>
 </section>
-<div class="drops"></div>
-<section class="plate"><h2>Usage, the True Line at Full Size</h2>
-<pre>python3 main.py SOURCE_CODE_PATH [--token_name NAME] [--form_field FIELD] [--exclude PATH ...]</pre><p>That line matches the argument parser in main.py: one required positional path, then the three named options. No second line is needed beside it and none is invented.</p>
+<section>
+  <h2>Requirements</h2>
+  <p>Python, standard library only. The requirements file says so in a comment and lists nothing to install.</p>
 </section>
-<div class="drops"></div>
-<section class="plate" id="params"><h2>The Five Parameters</h2>
-<div class="entry"><b>-h</b><span>Show help message and exit.</span></div><div class="entry"><b>source_code_path</b><span>Path to the source code directory or file. Required.</span></div><div class="entry"><b>--token_name</b><span>Name of the CSRF token (default: csrf_token).</span></div><div class="entry"><b>--form_field</b><span>Name of the CSRF form field (default: csrf_token).</span></div><div class="entry"><b>--exclude</b><span>List of files or directories to exclude.</span></div><p>Two facts from the parser stand beside the list at the same size. The token name and the form field must each be a plain identifier, a letter or underscore followed by letters, digits, or underscores, because both names are placed into the search patterns as raw pattern text, and a run with any other shape of name is refused with an error and exit 1. A path that is neither a file nor a directory is likewise refused with an error and exit 1.</p>
-</section>
-<div class="drops"></div>
-<section class="plate"><h2>Read the Log Lines, Not the Exit Code</h2>
-<p>A Python file containing a token generation call and a form field comparison against the token reports both generation and validation logic found. A file with neither reports both as not found, and still exits 0. The exit code does not distinguish a clean file from a file with no CSRF logic, so read the log lines, not the exit code, for the result.</p><div class="callout"><h3>Found Across the Tree Is Not Found in One File</h3><p>A directory run pools its two findings across the whole tree, so generation in one file and validation in another reads as both present even when no single file does both halves.</p></div><div class="callout"><h3>Exit 0 Proves Nothing Either Way</h3><p>Only files ending in .py are read, so token handling written in any other language or in a template is outside the check altogether, however sound or unsound it may be.</p></div>
-</section>
-<div class="drops"></div>
-<section class="plate"><h2>Licence Entry, Closing the Guide</h2>
-<pre>See LICENSE.</pre><p>The README closes with that line, printed as it stands. The repository LICENSE file carries the MIT License. Both facts are shown, and here they agree.</p>
-</section>
-</main>
-<footer><p>Theme: The Emperor Moth's One Night. Type: Bitcount Single for display, Cabin for reading, both SIL Open Font License 1.1.</p></footer>
+<footer>
+<p>The README of codeintel-csrf-token-analyzer names the current org in its clone URL and closes with See LICENSE; the repository carries a separate LICENSE file headed MIT License. Site type is set in Train One and Gantari, self-hosted under the SIL Open Font License.</p>
+</footer>
+</div>
 </body>
 </html>
